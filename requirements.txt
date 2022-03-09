@@ -1,6 +1,0 @@
-uvicorn
-requests
-fastapi
-python-dotenv
-aiofiles
-jinja2
