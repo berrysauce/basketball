@@ -57,3 +57,12 @@
   color: #fff;
 }
 
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: inherit;
+  opacity: 0.7;
+}
+
