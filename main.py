@@ -107,6 +107,7 @@ def get_root(request: Request):
     year = datetime.now().year
     return templates.TemplateResponse("index.html", {
         "request": request,
+        "avatar_url": data["avatar_url"],
         "name": data["name"],
         "login": data["login"],
         "bio": data["bio"],

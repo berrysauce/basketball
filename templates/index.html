@@ -10,24 +10,29 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:100,200,300,400,500,600,700,800,900&amp;display=swap">
     <link rel="stylesheet" href="assets/css/Footer-Basic.css">
     <link rel="stylesheet" href="assets/css/Highlight-Clean.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css">
-    <link rel="stylesheet" href="assets/css/Lightbox-Gallery.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body style="font-family: Inter, sans-serif;padding: 12px;">
+    <style>
+        .lightbox-image {
+            border-radius: 10px;
+        }
+        .lightbox-btn-close {
+            display: none;
+        }
+    </style>
     <section class="highlight-clean">
         <div class="container" style="margin-top: 25px;">
             <div class="intro">
-                <h2 class="fs-2 text-center" style="margin-bottom: 0px;"><img class="rounded-circle img-fluid" src="assets/img/07af83f8abd38c26e68e9f8be3a25039.webp" style="width: 90px;margin-bottom: 15px;"><br>{{ name }}</h2>
+                <h2 class="fs-2 text-center" style="margin-bottom: 0px;"><img class="rounded-circle img-fluid" src="{{ avatar_url }}" style="width: 90px;margin-bottom: 15px;"><br>{{ name }}</h2>
                 <ul class="list-inline text-center" style="margin-bottom: 25px;">
                     <li class="list-inline-item" style="padding-right: 10px;">@{{ login }}</li>
                     <li class="list-inline-item" style="padding-right: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-map-pin" style="margin-bottom: 3px;margin-right: 3px;">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                             <circle cx="12" cy="11" r="3"></circle>
                             <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
-                        </svg>
-                        {{ location }}</li>
+                        </svg>{{ location }}</li>
                     <li class="list-inline-item"><a href="{{ dribbble_url }}" style="color: rgb(49,52,55);text-decoration: none;"><svg class="icon icon-tabler icon-tabler-brand-dribbble" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 3px;margin-right: 3px;">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                         <circle cx="12" cy="12" r="9"></circle>
@@ -57,8 +62,9 @@
         <p class="text-center" style="margin-top: 25px;"><a href="https://berrysauce.me/basketball" style="color: rgb(85,85,85);text-decoration: none;" target="_blank"><span style="padding: 5px;padding-top: 4px;padding-bottom: 4px;padding-left: 6px;padding-right: 6px;background: #f5f5f5;border-radius: 5px;font-size: 14px;">Powered by&nbsp;<img src="assets/img/IMG_0812.png" style="width: 18px;margin-bottom: 3px;margin-right: 2px;"><strong>Basketball</strong></span></a></p>
     </footer>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js"></script>
-    <script src="assets/js/Lightbox-Gallery.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <link href="assets/css/lightbox.min.css" rel="stylesheet">
+    <script src="assets/js/lightbox.min.js"></script>
 </body>
 
 </html>
