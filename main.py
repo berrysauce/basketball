@@ -12,6 +12,7 @@ try:
     from typing import Optional
     import json
     from datetime import datetime
+    from bs4 import BeautifulSoup
 except:
     print("[ ! ] Failed to import packages - Try <pip install -r requirements.txt>")
 
@@ -61,7 +62,18 @@ def get_shot_grid():
     shots_html = """"""
 
     for shot in data:
-        shot_card = image_card.replace("{{ img_src }}", shot["images"]["normal"]).replace("{{ shot_url }}", shot["html_url"])
+        soup = BeautifulSoup(shot["description"])
+        if shot["images"]["hidpi"]:
+            shot_hidpi = shot["images"]["hidpi"]
+        else:
+            shot_hidpi = shot["images"]["normal"]
+        shot_card = image_card\
+            .replace("{{ img_src }}", shot["images"]["normal"])\
+            .replace("{{ imghidpi_src }}", shot_hidpi)\
+            .replace("{{ shot_url }}", shot["html_url"])\
+            .replace("{{ shot_id }}", str(shot["id"]))\
+            .replace("{{ shot_title }}", shot["title"])\
+            .replace("{{ shot_description }}", soup.get_text())
         shots_html = shots_html + shot_card
 
     return shots_html
@@ -145,7 +157,7 @@ if __name__ == "__main__":
     |  _ \ / _` / __| |/ / _ \ __| '_ \ / _` | | |
     | |_) | (_| \__ \   <  __/ |_| |_) | (_| | | |
     |____/ \__,_|___/_|\_\___|\__|_.__/ \__,_|_|_|
-    [ by berrysauce                Version 0.1.0 ]
+    [ by berrysauce                Version 0.1.X ]
 
     """)
     print("[ √ ] Starting Server")
