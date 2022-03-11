@@ -1,4 +1,11 @@
-# 🏀 Basketball
+<h1 align="center">🏀 Basketball</h1>
+<p align="center">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/berrysauce/basketball?label=size">
+  <img alt="Minimum Python version" src="https://img.shields.io/badge/python-%5E3.8-blue">
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/berrysauce/basketball?label=stable%20release">
+  <img alt="GitHub last commit (branch)" src="https://img.shields.io/github/last-commit/berrysauce/basketball/main">
+</p>
+
 A self-hosted Dribbble Playbook alternative
 
 Detailed docs and installation instructions can be found on https://berrysauce.me/basketball/. Docs will soon also be on GitHub.
