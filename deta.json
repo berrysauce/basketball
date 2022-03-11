@@ -1,0 +1,40 @@
+{
+    "name": "Basketball",
+    "description": "A self-hosted Dribbble Playbook alternative", 
+    "runtime": "python3.9",
+    "env": [
+        {
+            "key": "DRIBBBLE_TOKEN",
+            "description": "Generate this Token with the /auth endpoint. READ THE DOCS!",
+            "required": false 
+        },
+        {
+            "key": "DRIBBBLE_USERNAME",
+            "description": "Your username on Dribbble (without @)",
+            "required": true 
+        },
+        {
+            "key": "DRIBBBLE_CLIENT_ID",
+            "description": "Your Dribbble Application's Client ID",
+            "required": true 
+        },
+        {
+            "key": "DRIBBBLE_CLIENT_SECRET",
+            "description": "Your Dribbble Application's Client Secret",
+            "required": true 
+        },
+        {
+            "key": "APP_HOST",
+            "description": "DO NOT TOUCH!",
+            "value": "localhost",
+            "required": true 
+        },
+        {
+            "key": "APP_PORT",
+            "description": "DO NOT TOUCH!",
+            "value": "8000",
+            "required": true 
+        }
+    ]
+}
+
