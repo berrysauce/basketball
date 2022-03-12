@@ -5,6 +5,7 @@ try:
     from fastapi.responses import HTMLResponse, RedirectResponse
     from fastapi.staticfiles import StaticFiles
     from fastapi.templating import Jinja2Templates
+    from starlette.exceptions import HTTPException as StarletteHTTPException
     from dotenv import load_dotenv
     import os
     from functools import lru_cache
@@ -136,9 +137,19 @@ def get_root(request: Request):
 
 """
 ===========================================================
-                        RUNNER
+              RUNNER & EXCEPTION HANDLER
 ===========================================================
 """
+
+@app.exception_handler(StarletteHTTPException)
+async def my_custom_exception_handler(request: Request, exc: StarletteHTTPException):
+    if exc.status_code == 404:
+        return templates.TemplateResponse("error.html", {"request": request, "code": "404", "detail": "The requested resource couldn't be found."})
+    elif exc.status_code == 500:
+        return templates.TemplateResponse("error.html", {"request": request, "code": "500", "detail": exc.detail})
+    else:
+        return templates.TemplateResponse('error.html', {"request": request, "code": "Error", "detail": exc.detail})
+
 
 if __name__ == "__main__":
     print(
