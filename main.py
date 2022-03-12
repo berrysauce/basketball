@@ -17,6 +17,12 @@ except:
     print("[ ! ] Failed to import packages - Try <pip install -r requirements.txt>")
 
 
+"""
+===========================================================
+                        SETUP
+===========================================================
+"""
+
 # LOAD ENV
 print("[...] Loading .env values")
 try:
@@ -24,11 +30,6 @@ try:
     DRIBBBLE_TOKEN = str(os.getenv("DRIBBBLE_TOKEN"))
     if DRIBBBLE_TOKEN == "None":
         print("[ ! ] Dribbble Token not in .env")
-    """
-    DRIBBBLE_USERNAME = str(os.getenv("DRIBBBLE_USERNAME"))
-    DRIBBBLE_CLIENT_ID = str(os.getenv("DRIBBBLE_CLIENT_ID"))
-    DRIBBBLE_CLIENT_SECRET = str(os.getenv("DRIBBBLE_CLIENT_SECRET"))
-    """
     APP_HOST = str(os.getenv("APP_HOST"))
     APP_PORT = int(os.getenv("APP_PORT"))
 except:
@@ -64,7 +65,7 @@ def get_shot_grid():
     shots_html = """"""
 
     for shot in data:
-        soup = BeautifulSoup(shot["description"])
+        soup = BeautifulSoup(shot["description"], features="html.parser")
         if shot["images"]["hidpi"]:
             shot_hidpi = shot["images"]["hidpi"]
         else:
@@ -134,21 +135,10 @@ def get_root(request: Request):
 
 
 """
->>> DEPRECATED
-    Use auth.basketball.berrysauce.me for creating a Dribbble API key or create it yourself.
-
-@app.get("/auth")
-def get_auth(code: Optional[str] = None):
-    if DRIBBBLE_TOKEN != "None":
-        # Return 404 for security reasons after setup
-        raise HTTPException(status_code=404, detail="Not Found")
-    if code:
-        r = requests.post(f"https://dribbble.com/oauth/token?client_id={DRIBBBLE_CLIENT_ID}&client_secret={DRIBBBLE_CLIENT_SECRET}&code={code}")
-        access_token = json.loads(r.text)["access_token"]
-        return f"Add {access_token} to your .env as DRIBBBLE_TOKEN"
-    return RedirectResponse(f"https://dribbble.com/oauth/authorize?client_id={DRIBBBLE_CLIENT_ID}")
+===========================================================
+                        RUNNER
+===========================================================
 """
-
 
 if __name__ == "__main__":
     print(

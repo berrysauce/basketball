@@ -6,22 +6,7 @@
         {
             "key": "DRIBBBLE_TOKEN",
             "description": "Generate this Token with the /auth endpoint. READ THE DOCS!",
-            "required": false 
-        },
-        {
-            "key": "DRIBBBLE_USERNAME",
-            "description": "Your username on Dribbble (without @)",
-            "required": true 
-        },
-        {
-            "key": "DRIBBBLE_CLIENT_ID",
-            "description": "Your Dribbble Application's Client ID",
-            "required": true 
-        },
-        {
-            "key": "DRIBBBLE_CLIENT_SECRET",
-            "description": "Your Dribbble Application's Client Secret",
-            "required": true 
+            "required": true
         },
         {
             "key": "APP_HOST",
