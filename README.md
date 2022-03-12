@@ -9,4 +9,6 @@
 
 A self-hosted Dribbble Playbook alternative
 
+[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/berrysauce/basketball)
+
 Detailed docs and installation instructions can be found on https://berrysauce.me/basketball/. Docs will soon also be on GitHub.
