@@ -23,10 +23,12 @@ try:
     load_dotenv()
     DRIBBBLE_TOKEN = str(os.getenv("DRIBBBLE_TOKEN"))
     if DRIBBBLE_TOKEN == "None":
-        print("[ ! ] Dribbble Token not in .env - Get it from /auth")
+        print("[ ! ] Dribbble Token not in .env")
+    """
     DRIBBBLE_USERNAME = str(os.getenv("DRIBBBLE_USERNAME"))
     DRIBBBLE_CLIENT_ID = str(os.getenv("DRIBBBLE_CLIENT_ID"))
     DRIBBBLE_CLIENT_SECRET = str(os.getenv("DRIBBBLE_CLIENT_SECRET"))
+    """
     APP_HOST = str(os.getenv("APP_HOST"))
     APP_PORT = int(os.getenv("APP_PORT"))
 except:
@@ -112,7 +114,7 @@ def get_root(request: Request):
     """
 
     if DRIBBBLE_TOKEN == "None":
-        raise HTTPException(status_code=500, detail="Dribbble Token not in .env - Get it from /auth (more about this in the docs)")
+        raise HTTPException(status_code=500, detail="Dribbble Token not in .env (more about this in the docs)")
 
     shots_html = get_shot_grid()
     data, links_html = get_profile_data()
@@ -131,13 +133,12 @@ def get_root(request: Request):
     })
 
 
+"""
+>>> DEPRECATED
+    Use auth.basketball.berrysauce.me for creating a Dribbble API key or create it yourself.
+
 @app.get("/auth")
 def get_auth(code: Optional[str] = None):
-    """
-    Used for retrieving API token with OAuth
-    :param code
-    """
-
     if DRIBBBLE_TOKEN != "None":
         # Return 404 for security reasons after setup
         raise HTTPException(status_code=404, detail="Not Found")
@@ -146,6 +147,7 @@ def get_auth(code: Optional[str] = None):
         access_token = json.loads(r.text)["access_token"]
         return f"Add {access_token} to your .env as DRIBBBLE_TOKEN"
     return RedirectResponse(f"https://dribbble.com/oauth/authorize?client_id={DRIBBBLE_CLIENT_ID}")
+"""
 
 
 if __name__ == "__main__":
