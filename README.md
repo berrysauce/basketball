@@ -11,3 +11,7 @@
 [![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/berrysauce/basketball)
 
 Detailed docs and installation instructions can be found on https://berrysauce.me/basketball/. Docs will soon also be on GitHub.
+
+<a href="https://deta.sh?ref=basketball">
+  <img alt="Sponsored by Deta" src="https://brry.fra1.cdn.digitaloceanspaces.com/images/deta-sponsor-banner3.png">
+</a>
