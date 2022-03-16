@@ -5,7 +5,7 @@
 }
 
 .highlight-clean p {
-  color: #313437;
+  color: #7d8285;
 }
 
 .highlight-clean h2 {
@@ -55,14 +55,5 @@
 .highlight-clean .buttons .btn-primary {
   background-color: #055ada;
   color: #fff;
-}
-
-a {
-  color: inherit;
-}
-
-a:hover {
-  color: inherit;
-  opacity: 0.7;
 }
 
