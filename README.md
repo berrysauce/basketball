@@ -12,6 +12,4 @@
 
 Detailed docs and installation instructions can be found on https://berrysauce.me/basketball/. Docs will soon also be on GitHub.
 
-<a href="https://deta.sh?ref=basketball" target="_blank">
-  <img alt="Sponsored by Deta" src="https://brry.fra1.cdn.digitaloceanspaces.com/images/deta-sponsor-banner3.png">
-</a>
+<a href="https://deta.sh/?ref=microletter" target="_blank"><img src="https://eu2.contabostorage.com/d74bc97ec80c4b13b7f1db8d39948228:brry-cdn/deta-sponsor/D3263D63-638F-46C3-B9AB-9DC7C5CAB9BC.jpeg" alt="Sponsored by Deta"></a>
