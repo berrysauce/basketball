@@ -10,6 +10,6 @@
 
 [![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/berrysauce/basketball)
 
-Detailed docs and installation instructions can be found on https://berrysauce.me/basketball/. Docs will soon also be on GitHub.
+Detailed docs and installation instructions can be found on https://usebasketball.com. Docs will soon also be on GitHub.
 
 <a href="https://deta.sh/?ref=microletter" target="_blank"><img src="https://eu2.contabostorage.com/d74bc97ec80c4b13b7f1db8d39948228:brry-cdn/deta-sponsor/D3263D63-638F-46C3-B9AB-9DC7C5CAB9BC.jpeg" alt="Sponsored by Deta"></a>
