@@ -5,7 +5,7 @@
     "env": [
         {
             "key": "DRIBBBLE_TOKEN",
-            "description": "Generate this Token at https://basketballauth.deta.dev - READ THE DOCS!",
+            "description": "Generate this Token at https://auth.usebasketball.com - READ THE DOCS!",
             "required": true
         },
         {
