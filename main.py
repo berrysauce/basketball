@@ -160,7 +160,7 @@ def get_profile_data():
     links_html = """"""
     for link in data["links"]:
         links_html = links_html + link_html.replace("{{ url }}", data["links"][link]).replace("{{ name }}", link.capitalize())
-
+    print(data)
     return data, links_html
 
 
