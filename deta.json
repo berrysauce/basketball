@@ -9,6 +9,12 @@
             "required": true
         },
         {
+            "key": "CACHE_EXPIRY",
+            "description": "Expiry of cached items in seconds - READ THE DOCS!",
+            "value": "3600",
+            "required": true
+        },
+        {
             "key": "APP_HOST",
             "description": "DO NOT TOUCH!",
             "value": "localhost",

@@ -8,14 +8,17 @@ try:
     from starlette.exceptions import HTTPException as StarletteHTTPException
     from dotenv import load_dotenv
     import os
+    import sys
     from functools import lru_cache
     import requests
     from typing import Optional
     import json
     from datetime import datetime
     from bs4 import BeautifulSoup
+    from deta import Deta
 except:
-    print("[ ! ] Failed to import packages - Try <pip install -r requirements.txt>")
+    print("[-!-] Failed to import packages \n..... Try <pip install -r requirements.txt>")
+    sys.exit(1)
 
 
 """
@@ -29,16 +32,40 @@ print("[...] Loading .env values")
 try:
     load_dotenv()
     DRIBBBLE_TOKEN = str(os.getenv("DRIBBBLE_TOKEN"))
-    if DRIBBBLE_TOKEN == "None":
-        print("[ ! ] Dribbble Token not in .env")
     APP_HOST = str(os.getenv("APP_HOST"))
-    APP_PORT = int(os.getenv("APP_PORT"))
+    APP_PORT = os.getenv("APP_PORT")
+    CACHE_EXPIRY = os.getenv("CACHE_EXPIRY")
+
+    if DRIBBBLE_TOKEN == "None":
+        print("[ ! ] Dribbble Token not in .env \n..... See how to get it in the docs")
+    if APP_HOST == "None":
+        print("[ ! ] Host not in .env \n..... defaulting to localhost")
+        APP_HOST = "localhost"
+    if APP_PORT == None:
+        print("[ ! ] Port not in .env \n..... defaulting to 8000")
+        APP_PORT = 8000
+    if CACHE_EXPIRY == None:
+        print("[ ! ] CACHE_EXPIRY not in .env \n..... defaulting to 3600")
+        CACHE_EXPIRY = 3600
 except:
-    print("[ ! ] Failed to load .env - Make sure you've created a .env and filled it with the correct information")
+    print("[-!-] Failed to load .env \n..... Make sure you've created a .env and filled it with the correct information")
+    sys.exit(1)
+
+# LOAD DETA ENV
+DETA_RUNTIME = os.getenv("DETA_RUNTIME")
+if DETA_RUNTIME == "true":
+    DETA_TOKEN = None
+else:
+    DETA_TOKEN = str(os.getenv("DETA_TOKEN"))
+    if DETA_TOKEN == "None":
+        print("[-!-] DETA Token missing \n..... You're in a local runtime and the DETA Token is required")
+        sys.exit(1)
 
 # INITIALIZE APP
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None)
 templates = Jinja2Templates(directory="templates")
+deta = Deta(DETA_TOKEN)
+cachedb = deta.Base("basketball_cache")
 
 app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
 
@@ -49,16 +76,44 @@ app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
 ===========================================================
 """
 
-@lru_cache()
+def cache_handler(key, data):
+    """
+    Checks if data is in cache and adds it if it's not there
+    :return: Data from cache
+    """
+
+    res = cachedb.fetch(query={"cache_key": key}).items
+
+    if len(res) == 0 and data is None:
+        return False
+
+    if len(res) == 0 and data is not None:
+        # No item in cache, creating item
+        cache_data = {"cache_key": key,
+                      "cache_data": data}
+        cachedb.put(data=cache_data, expire_in=int(CACHE_EXPIRY))
+        return data
+    else:
+        # Item in cache, returning from cache
+        return res[0]["cache_data"]
+
+
 def get_shot_grid():
     """
     Generates the HTML grid of shots from Dribbble
     :return: HTML shot grid
     """
 
+    # Get cache
+    cached = cache_handler(key="shots", data=None)
+
     # Get user's shots from Dribbble API
-    r = requests.get(f"https://api.dribbble.com/v2/user/shots?access_token={DRIBBBLE_TOKEN}")
-    data = json.loads(r.text)
+    if cached is False:
+        r = requests.get(f"https://api.dribbble.com/v2/user/shots?access_token={DRIBBBLE_TOKEN}")
+        data = json.loads(r.text)
+        data = cache_handler(key="shots", data=data)
+    else:
+        data = cached
 
     # Get image card HTML
     with open("templates/components/image-card.html", "r") as f:
@@ -83,16 +138,22 @@ def get_shot_grid():
     return shots_html
 
 
-@lru_cache()
 def get_profile_data():
     """
     Requests profile info from Dribbble API and returns it along with links in HTML
     :return: profile data, HTML links
     """
 
+    # Step 0: Check cache
+    cached = cache_handler(key="profile", data=None)
+
     # Step 1: Get profile data
-    r = requests.get(f"https://api.dribbble.com/v2/user?access_token={DRIBBBLE_TOKEN}")
-    data = json.loads(r.text)
+    if cached is False:
+        r = requests.get(f"https://api.dribbble.com/v2/user?access_token={DRIBBBLE_TOKEN}")
+        data = json.loads(r.text)
+        data = cache_handler(key="profile", data=data)
+    else:
+        data = cached
 
     # Step 2: Generate footer links
     link_html = """<li class="list-inline-item"><a href="{{ url }}" target="_blank">{{ name }}</a></li>"""
@@ -163,5 +224,6 @@ if __name__ == "__main__":
     [ by berrysauce                Version 0.1.X ]
 
     """)
-    print("[ √ ] Starting Server")
-    uvicorn.run(app, host=APP_HOST, port=APP_PORT)
+    print(f"[ √ ] Starting Server \n..... at {APP_HOST}:{APP_PORT} \n..... with CACHE_EXPIRY {CACHE_EXPIRY}")
+    # converting APP_PORT to int here to not interfere with .env reading check (try/except)
+    uvicorn.run(app, host=APP_HOST, port=int(APP_PORT))
