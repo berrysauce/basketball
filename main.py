@@ -221,7 +221,7 @@ if __name__ == "__main__":
     |  _ \ / _` / __| |/ / _ \ __| '_ \ / _` | | |
     | |_) | (_| \__ \   <  __/ |_| |_) | (_| | | |
     |____/ \__,_|___/_|\_\___|\__|_.__/ \__,_|_|_|
-    [ by berrysauce                Version 0.1.X ]
+    [ by berrysauce                Version 0.2.X ]
 
     """)
     print(f"[ √ ] Starting Server \n..... at {APP_HOST}:{APP_PORT} \n..... with CACHE_EXPIRY {CACHE_EXPIRY}")
