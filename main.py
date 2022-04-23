@@ -84,9 +84,11 @@ def cache_handler(key, data):
 
     res = cachedb.fetch(query={"cache_key": key}).items
 
+    # no cached items
     if len(res) == 0 and data is None:
         return False
 
+    # no cached items but data was given
     if len(res) == 0 and data is not None:
         # No item in cache, creating item
         cache_data = {"cache_key": key,
