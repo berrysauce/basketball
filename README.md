@@ -40,4 +40,4 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 For legal questions, contact legal[at]berrysauce[dot]me.
 
-<a href="https://deta.sh/?ref=basketball" target="_blank"><img src="https://eu2.contabostorage.com/d74bc97ec80c4b13b7f1db8d39948228:brry-cdn/deta-sponsor/D3263D63-638F-46C3-B9AB-9DC7C5CAB9BC.jpeg" alt="Sponsored by Deta"></a>
+<a href="https://deta.sh/?ref=basketball" target="_blank"><img src="https://cdn.berrysauce.me/assets/deta-sponsor-banner.jpg" alt="Sponsored by Deta"></a>
