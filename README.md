@@ -11,6 +11,21 @@
 ## What is Basketball?
 Basketball is a self-hosted alternative to the quite pricey Dribbble Playbook. Playbook is a portfolio site which automatically displays your Dribbble Shots, and that's what Basketball can also do! It's easier than manually uploading all your shots to a portfolio site, and also it just looks cool to have a custom portfolio with a custom domain. Of course, Basketball is hackable, so you can create your own themes or do more with the Dribbble API.
 
+## How does it look?
+<img src="https://usebasketball.com/assets/img/img1.png" alt="Basketball Screenshot">
+
+## Is there a full list of features?
+Yes there is:
+
+- [x] 🔗 **Custom domain support** (Connect your own domain, like example.com)
+- [x] ⚡️ **Fast loading times** (Thanks to Dribbble request caching with custom cache expiry)
+- [x] 📸 **Dribbble synchronization** (Basketball automatically fetches your Dribbble posts)
+- [x] ✨ **Great design** (Basketball's design is minimalistic yet functional)
+- [x] ⚙️ **Extensible** (Make your own themes and add functionality)
+- [x] 📦 **Easy to install** (Basketball is super easy to install and doesn't need to be maintained)
+- [x] 💸 **Save money** (You can host Basketball for free when using Deta - Don't pay $12 /month for Dribbble's Playbook!)
+- [x] 🏀 **Open Source** (Basketball is maintained by contributors on GitHub - The source code is public)
+
 <hr>
 <p align="center">
   What are you waiting for?<br>
