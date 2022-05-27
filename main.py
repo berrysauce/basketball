@@ -32,8 +32,8 @@ print("[...] Loading .env values")
 try:
     load_dotenv()
     DRIBBBLE_TOKEN = str(os.getenv("DRIBBBLE_TOKEN"))
-    APP_HOST = str(os.getenv("APP_HOST"))
-    APP_PORT = os.getenv("APP_PORT")
+    APP_HOST = "localhost"
+    APP_PORT = 8000
     CACHE_EXPIRY = os.getenv("CACHE_EXPIRY")
 
     if DRIBBBLE_TOKEN == "None":
@@ -162,7 +162,6 @@ def get_profile_data():
     links_html = """"""
     for link in data["links"]:
         links_html = links_html + link_html.replace("{{ url }}", data["links"][link]).replace("{{ name }}", link.capitalize())
-    print(data)
     return data, links_html
 
 

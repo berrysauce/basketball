@@ -13,18 +13,6 @@
             "description": "Expiry of cached items in seconds - READ THE DOCS!",
             "value": "3600",
             "required": true
-        },
-        {
-            "key": "APP_HOST",
-            "description": "DO NOT TOUCH!",
-            "value": "localhost",
-            "required": true 
-        },
-        {
-            "key": "APP_PORT",
-            "description": "DO NOT TOUCH!",
-            "value": "8000",
-            "required": true 
         }
     ]
 }
