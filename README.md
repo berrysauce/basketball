@@ -29,7 +29,7 @@ Yes there is:
 <hr>
 <p align="center">
   What are you waiting for?<br>
-  <a href="https://go.deta.dev/deploy?repo=https://github.com/berrysauce/basketball"><img alt="GitHub repo size" src="https://button.deta.dev/1/svg"></a>
+  <a href="https://go.deta.dev/deploy?repo=https://github.com/berrysauce/basketball"><img alt="Deploy to Deta" src="https://button.deta.dev/1/svg"></a>
 </p>
 <hr>
 
