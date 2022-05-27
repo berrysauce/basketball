@@ -12,6 +12,7 @@
 Basketball is a self-hosted alternative to the quite pricey Dribbble Playbook. Playbook is a portfolio site which automatically displays your Dribbble Shots, and that's what Basketball can also do! It's easier than manually uploading all your shots to a portfolio site, and also it just looks cool to have a custom portfolio with a custom domain. Of course, Basketball is hackable, so you can create your own themes or do more with the Dribbble API.
 
 ## How does it look?
+> Live preview available at https://demo.usebasketball.com
 <img src="https://usebasketball.com/assets/img/img1.png" alt="Basketball Screenshot">
 
 ## Is there a full list of features?
