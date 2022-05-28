@@ -1,24 +1,19 @@
-print("[...] Importing packages")
-try:
-    import uvicorn
-    from fastapi import FastAPI, Request, HTTPException
-    from fastapi.responses import HTMLResponse, RedirectResponse
-    from fastapi.staticfiles import StaticFiles
-    from fastapi.templating import Jinja2Templates
-    from starlette.exceptions import HTTPException as StarletteHTTPException
-    from dotenv import load_dotenv
-    import os
-    import sys
-    from functools import lru_cache
-    import requests
-    from typing import Optional
-    import json
-    from datetime import datetime
-    from bs4 import BeautifulSoup
-    from deta import Deta
-except:
-    print("[-!-] Failed to import packages \n..... Try <pip install -r requirements.txt>")
-    sys.exit(1)
+import uvicorn
+from fastapi import FastAPI, Request, HTTPException
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from dotenv import load_dotenv
+import os
+import sys
+from functools import lru_cache
+import requests
+from typing import Optional
+import json
+from datetime import datetime
+from bs4 import BeautifulSoup
+from deta import Deta
 
 
 """
@@ -48,7 +43,9 @@ try:
         print("[ ! ] CACHE_EXPIRY not in .env \n..... defaulting to 3600")
         CACHE_EXPIRY = 3600
 except:
-    print("[-!-] Failed to load .env \n..... Make sure you've created a .env and filled it with the correct information")
+    print(
+        "[-!-] Failed to load .env \n..... Make sure you've created a .env and filled it with the correct information"
+    )
     sys.exit(1)
 
 # LOAD DETA ENV
@@ -58,7 +55,9 @@ if DETA_RUNTIME == "true":
 else:
     DETA_TOKEN = str(os.getenv("DETA_TOKEN"))
     if DETA_TOKEN == "None":
-        print("[-!-] DETA Token missing \n..... You're in a local runtime and the DETA Token is required")
+        print(
+            "[-!-] DETA Token missing \n..... You're in a local runtime and the DETA Token is required"
+        )
         sys.exit(1)
 
 # INITIALIZE APP
@@ -76,6 +75,7 @@ app.mount("/assets", StaticFiles(directory="templates/assets"), name="assets")
 ===========================================================
 """
 
+
 def cache_handler(key, data):
     """
     Checks if data is in cache and adds it if it's not there
@@ -91,8 +91,7 @@ def cache_handler(key, data):
     # no cached items but data was given
     if len(res) == 0 and data is not None:
         # No item in cache, creating item
-        cache_data = {"cache_key": key,
-                      "cache_data": data}
+        cache_data = {"cache_key": key, "cache_data": data}
         cachedb.put(data=cache_data, expire_in=int(CACHE_EXPIRY))
         return data
     else:
@@ -111,7 +110,9 @@ def get_shot_grid():
 
     # Get user's shots from Dribbble API
     if cached is False:
-        r = requests.get(f"https://api.dribbble.com/v2/user/shots?access_token={DRIBBBLE_TOKEN}")
+        r = requests.get(
+            f"https://api.dribbble.com/v2/user/shots?access_token={DRIBBBLE_TOKEN}"
+        )
         data = json.loads(r.text)
         data = cache_handler(key="shots", data=data)
     else:
@@ -128,13 +129,14 @@ def get_shot_grid():
             shot_hidpi = shot["images"]["hidpi"]
         else:
             shot_hidpi = shot["images"]["normal"]
-        shot_card = image_card\
-            .replace("{{ img_src }}", shot["images"]["normal"])\
-            .replace("{{ imghidpi_src }}", shot_hidpi)\
-            .replace("{{ shot_url }}", shot["html_url"])\
-            .replace("{{ shot_id }}", str(shot["id"]))\
-            .replace("{{ shot_title }}", shot["title"])\
+        shot_card = (
+            image_card.replace("{{ img_src }}", shot["images"]["normal"])
+            .replace("{{ imghidpi_src }}", shot_hidpi)
+            .replace("{{ shot_url }}", shot["html_url"])
+            .replace("{{ shot_id }}", str(shot["id"]))
+            .replace("{{ shot_title }}", shot["title"])
             .replace("{{ shot_description }}", soup.get_text())
+        )
         shots_html = shots_html + shot_card
 
     return shots_html
@@ -151,7 +153,9 @@ def get_profile_data():
 
     # Step 1: Get profile data
     if cached is False:
-        r = requests.get(f"https://api.dribbble.com/v2/user?access_token={DRIBBBLE_TOKEN}")
+        r = requests.get(
+            f"https://api.dribbble.com/v2/user?access_token={DRIBBBLE_TOKEN}"
+        )
         data = json.loads(r.text)
         data = cache_handler(key="profile", data=data)
     else:
@@ -161,7 +165,9 @@ def get_profile_data():
     link_html = """<li class="list-inline-item"><a href="{{ url }}" target="_blank">{{ name }}</a></li>"""
     links_html = """"""
     for link in data["links"]:
-        links_html = links_html + link_html.replace("{{ url }}", data["links"][link]).replace("{{ name }}", link.capitalize())
+        links_html = links_html + link_html.replace(
+            "{{ url }}", data["links"][link]
+        ).replace("{{ name }}", link.capitalize())
     return data, links_html
 
 
@@ -171,6 +177,7 @@ def get_profile_data():
 ===========================================================
 """
 
+
 @app.get("/", response_class=HTMLResponse)
 def get_root(request: Request):
     """
@@ -178,23 +185,29 @@ def get_root(request: Request):
     """
 
     if DRIBBBLE_TOKEN == "None":
-        raise HTTPException(status_code=500, detail="Dribbble Token not in .env (more about this in the docs)")
+        raise HTTPException(
+            status_code=500,
+            detail="Dribbble Token not in .env (more about this in the docs)",
+        )
 
     shots_html = get_shot_grid()
     data, links_html = get_profile_data()
     year = datetime.now().year
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "avatar_url": data["avatar_url"],
-        "name": data["name"],
-        "login": data["login"],
-        "bio": data["bio"],
-        "location": data["location"],
-        "dribbble_url": data["html_url"],
-        "shots_html": shots_html,
-        "links_html": links_html,
-        "year": year
-    })
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "avatar_url": data["avatar_url"],
+            "name": data["name"],
+            "login": data["login"],
+            "bio": data["bio"],
+            "location": data["location"],
+            "dribbble_url": data["html_url"],
+            "shots_html": shots_html,
+            "links_html": links_html,
+            "year": year,
+        },
+    )
 
 
 """
@@ -203,19 +216,31 @@ def get_root(request: Request):
 ===========================================================
 """
 
+
 @app.exception_handler(StarletteHTTPException)
 async def my_custom_exception_handler(request: Request, exc: StarletteHTTPException):
     if exc.status_code == 404:
-        return templates.TemplateResponse("error.html", {"request": request, "code": "404", "detail": "The requested resource couldn't be found."})
+        return templates.TemplateResponse(
+            "error.html",
+            {
+                "request": request,
+                "code": "404",
+                "detail": "The requested resource couldn't be found.",
+            },
+        )
     elif exc.status_code == 500:
-        return templates.TemplateResponse("error.html", {"request": request, "code": "500", "detail": exc.detail})
+        return templates.TemplateResponse(
+            "error.html", {"request": request, "code": "500", "detail": exc.detail}
+        )
     else:
-        return templates.TemplateResponse('error.html', {"request": request, "code": "Error", "detail": exc.detail})
+        return templates.TemplateResponse(
+            "error.html", {"request": request, "code": "Error", "detail": exc.detail}
+        )
 
 
 if __name__ == "__main__":
     print(
-    """
+        """
 
     ____            _        _   _           _ _ 
     | __ )  __ _ ___| | _____| |_| |__   __ _| | |
@@ -224,7 +249,10 @@ if __name__ == "__main__":
     |____/ \__,_|___/_|\_\___|\__|_.__/ \__,_|_|_|
     [ by berrysauce                Version 0.2.X ]
 
-    """)
-    print(f"[ √ ] Starting Server \n..... at {APP_HOST}:{APP_PORT} \n..... with CACHE_EXPIRY {CACHE_EXPIRY}")
+    """
+    )
+    print(
+        f"[ √ ] Starting Server \n..... at {APP_HOST}:{APP_PORT} \n..... with CACHE_EXPIRY {CACHE_EXPIRY}"
+    )
     # converting APP_PORT to int here to not interfere with .env reading check (try/except)
     uvicorn.run(app, host=APP_HOST, port=int(APP_PORT))
